@@ -1,5 +1,6 @@
 package com.andreypaunov.navtest.fragments.graph
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,17 +10,22 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.andreypaunov.navtest.R
+import com.andreypaunov.navtest.activities.ContainerActivity
 import com.andreypaunov.navtest.databinding.FragmentFirstBinding
 import com.andreypaunov.navtest.viewmodels.GraphViewModel
 
 class FirstFragment : Fragment() {
     private val graphViewModel: GraphViewModel by navGraphViewModels(R.id.nav_graph)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val binding = DataBindingUtil.inflate<FragmentFirstBinding>(inflater, R.layout.fragment_first, container, false)
 
+        binding.containerActivityButton.setOnClickListener {
+            startActivity(Intent(activity, ContainerActivity::class.java))
+        }
+
         binding.button.setOnClickListener {
-            val action = FirstFragmentDirections.openSecondFragment("From First", 3)
+            val action = FirstFragmentDirections.openSecondFragment("First Data", 3)
 
             findNavController().navigate(action)
         }

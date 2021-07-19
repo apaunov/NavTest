@@ -20,7 +20,6 @@ class SecondFragment : Fragment() {
 
     private var test: String? = null
     private var test2: Int = 0
-    private var backTest: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +32,7 @@ class SecondFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_second, container, false)
-        binding.textView.text = test
+        binding.textView.text = "Second Fragment - $test"
         binding.button.setOnClickListener {
             val action = SecondFragmentDirections.openThirdFragment()
 
@@ -48,14 +47,8 @@ class SecondFragment : Fragment() {
 
         val navController = findNavController()
 
-        backTest?.let {
-            binding.textView.text = it
-        }
-
         navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("key")?.observe(viewLifecycleOwner) { result ->
-            backTest = result
-
-            Log.d("====", "Second Fragment back result: $result")
+            binding.backText.text = result
 
             navController.currentBackStackEntry?.savedStateHandle?.remove<String>("key")
         }

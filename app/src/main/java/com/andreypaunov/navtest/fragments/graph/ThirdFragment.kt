@@ -33,7 +33,7 @@ class ThirdFragment: Fragment() {
         binding.backData.setOnClickListener {
             Log.d("====", "backData clicked")
 
-            navController.previousBackStackEntry?.savedStateHandle?.set("key", "Back from Third Fragment")
+            navController.previousBackStackEntry?.savedStateHandle?.set("key", "Result from Third Fragment")
         }
 
         return binding.root
